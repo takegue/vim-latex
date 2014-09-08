@@ -644,6 +644,7 @@ function! Tex_SetupErrorWindow()
 	" command is not fixed.
 	cclose
 	cwindow
+
 	" create log file name from mainfname
 	let mfnlog = fnamemodify(mainfname, ":t:r").'.log'
 	call Tex_Debug('Tex_SetupErrorWindow: mfnlog = '.mfnlog, 'comp')
@@ -655,13 +656,12 @@ function! Tex_SetupErrorWindow()
 			exe 'nnoremap <buffer> <silent> k k:call Tex_UpdatePreviewWindow("'.mfnlog.'")<CR>'
 			exe 'nnoremap <buffer> <silent> <up> <up>:call Tex_UpdatePreviewWindow("'.mfnlog.'")<CR>'
 			exe 'nnoremap <buffer> <silent> <down> <down>:call Tex_UpdatePreviewWindow("'.mfnlog.'")<CR>'
+
 		endif
 		exe 'nnoremap <buffer> <silent> <enter> :call Tex_GotoErrorLocation("'.mfnlog.'")<CR>'
-
 		setlocal nowrap
-
 		" resize the window to just fit in with the number of lines.
-		exec ( line('$') < 4 ? line('$') : 4 ).' wincmd _'
+		" exec ( line('$') < 4 ? line('$') : 20 ).' wincmd _'
         if Tex_GetVarValue('Tex_GotoError') == 1
 	        call Tex_GotoErrorLocation(mfnlog)
         else
